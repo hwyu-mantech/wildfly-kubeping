@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wildfly
-  namespace: shop
   labels:
     app: wildfly
 spec:
@@ -17,21 +16,17 @@ spec:
     spec:
       serviceAccountName: jgroups-kubeping-service-account
       containers:
-        - name: kube-ping
+        - name: wildfly-kube-ping
           image: accordion/wildfly-kubeping:23
           command: ["/opt/jboss/wildfly/bin/standalone.sh"]
           args: ["--server-config", "standalone-ha.xml", "-b", $(POD_IP), "-bmanagement", $(POD_IP) ,"-bprivate", $(POD_IP) ]
           resources:
             requests:
               memory: 256Mi
-            limits:
-              memory: 512Mi
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-            - containerPort: 9990
             - containerPort: 7600
-            - containerPort: 8888
           env:
             - name: POD_IP
               valueFrom:
@@ -45,14 +40,11 @@ spec:
                   fieldPath: metadata.namespace
             - name: KUBERNETES_LABELS 
               value: app=wildfly
-            - name: JAVA_OPTS
-              value: -Djdk.tls.client.protocols=TLSv1.3
 ---
 apiVersion: v1
 kind: Service
 metadata:
     name: wildfly
-    namespace: shop
     labels:
       app: wildfly
 spec:
