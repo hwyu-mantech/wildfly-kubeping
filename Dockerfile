@@ -1,4 +1,4 @@
-FROM jboss/wildfly:20.0.1.Final
+FROM jboss/wildfly:23.0.1.Final
 LABEL MAINTAINER bskim <bskim@mantech.co.kr>
 
 ADD config-wildfly.cli /opt/jboss/

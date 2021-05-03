@@ -18,7 +18,7 @@ spec:
       serviceAccountName: jgroups-kubeping-service-account
       containers:
         - name: kube-ping
-          image: accordion/wildfly-kubeping:20
+          image: accordion/wildfly-kubeping:23
           command: ["/opt/jboss/wildfly/bin/standalone.sh"]
           args: ["--server-config", "standalone-ha.xml", "-b", $(POD_IP), "-bmanagement", $(POD_IP) ,"-bprivate", $(POD_IP) ]
           resources:
