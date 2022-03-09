@@ -1,5 +1,5 @@
-FROM jboss/wildfly:23.0.1.Final
-LABEL MAINTAINER bskim <bskim@mantech.co.kr>
+FROM jboss/wildfly:25.0.0.Final
+LABEL MAINTAINER hwyu <hwyu@mantech.co.kr>
 
 ADD config-wildfly.cli /opt/jboss/
 ADD cluster.war /opt/jboss/wildfly/standalone/deployments/
